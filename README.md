@@ -19,13 +19,13 @@ Chapters (`# Chapter title`) and scences (`## Scence title`) are automatically g
 
 ## Live comment
 
-### Missing words
+### Undecided words
 
 ```
 [](I don't know which word to choose, so I leave it blank and put some comment here)
 ```
 
-### Words that need revision
+### Words need revision
 
 When you think there would be a more suitable word.
 
