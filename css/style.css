@@ -1,0 +1,24 @@
+.CodeMirror {
+    font-family: "Palatino";
+    font-size: 120%;
+    line-height: 150%;
+    border-left: none;
+    border-right: none;
+    height: 100%;
+}
+
+.text-wrap * {
+    white-space: normal!important;
+}
+
+.widget-header {
+    height: 40px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+}
+
+.widget-content {
+    height: calc(100% - 40px);
+    overflow: auto;
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+    <head>
+        <meta charset="UTF-8">
+        <title>Herb</title>
+
+        <!-- Stylesheets -->
+        <link rel="stylesheet" href="vendor/angular-material/angular-material.css">
+        <link rel="stylesheet" href="vendor/simplemde/dist/simplemde.min.css"/>
+        <link rel="stylesheet" href="css/style.css"/>
+        <link rel="stylesheet" href="css/nav-menu.css"/>
+
+        <!-- Javascript -->
+        <script>
+            if (typeof module === 'object') {
+                window.module = module;
+                module = undefined;
+            }
+        </script>
+        <script src="vendor/simplemde/dist/simplemde.min.js"></script>
+        <script src="js/menu.js" charset="utf-8"></script>
+
+        <script src="vendor/angular/angular.js"></script>
+        <script src="vendor/angular-aria/angular-aria.js"></script>
+        <script src="vendor/angular-animate/angular-animate.js"></script>
+        <script src="vendor/angular-material/angular-material.js"></script>
+        <script src="vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+        <script src="vendor/angular-ui-router/release/angular-ui-router.js"></script>
+    </head>
+    <body id="body">
+        <div ui-view style="height: 100%; width: 100%" layout="row"></div>
+
+        <script src="js/app.modules.js"></script>
+        <script src="js/app.routes.js"></script>
+        <script src="js/services/menu.service.js"></script>
+        <script src="js/services/section.service.js"></script>
+        <script src="js/services/simplemde.service.js"></script>
+        <script src="js/services/project.service.js"></script>
+        <script src="js/services/comment.service.js"></script>
+        <script src="js/controllers/home.controller.js"></script>
+        <script src="js/controllers/characters.controller.js"></script>
+        <script src="js/directives/menu-toggle.directive.js"></script>
+        <script src="js/directives/menu-link.directive.js"></script>
+    </body>
+</html>

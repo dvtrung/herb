@@ -1,0 +1,25 @@
+{
+  "name": "herb",
+  "description": "A simple template app for Proton",
+  "main": "app.js",
+  "authors": [
+    "Dang Viet Trung"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "simplemde": "^1.11.2",
+    "angular-material": "^1.0.9",
+    "angular": "^1.5.8",
+    "jquery": "^3.1.0",
+    "angular-ui-router": "^0.3.1",
+    "angular-bootstrap": "^2.0.0"
+  }
+}

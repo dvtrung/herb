@@ -1,0 +1,65 @@
+<md-content flex layout="column">
+    <md-tabs flex>
+        <md-tab flex label="overall">
+            <md-content class="md-padding">
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Title</label>
+                        <input ng-model="book.title"/>
+                    </md-input-container>
+                </div>
+                <div layout-gt-xs="row">
+
+                </div>
+            </md-content>
+        </md-tab>
+        <md-tab flex label="characters">
+            <md-content flex class="md-padding" layout="row" ng-controller="charactersCtrl">
+                <div flex="20">
+                    <md-content>
+                        <md-list flex>
+                            <md-list-item class="md-3-line" ng-click="select(character)" ng-repeat="character in characters" ng-class="{ 'active': selectedCharacter == character }">
+                                <div class="md-list-item-text">
+                                    <h3>{{ character.name }}</h3>
+                                    <p>{{ character.description }}</p>
+                                </div>
+                            </md-list-item>
+                        </md-list>
+                    </md-content>
+                </div>
+                <div flex>
+                    <md-content class="md-padding">
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Character Name</label>
+                            <input ng-model="selectedCharacter.name"/>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Description</label>
+                            <input ng-model="selectedCharacter.description"/>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Age</label>
+                            <input ng-model="selectedCharacter.age"/>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Occuppation</label>
+                            <input ng-model="selectedCharacter.occuppation"/>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Role</label>
+                            <input ng-model="selectedCharacter.role"/>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Timeline</label>
+                            <textarea ng-model="selectedCharacter.timeline" row="5"></textarea>
+                        </md-input-container>
+                    </md-content>
+                </div>
+            </md-content>
+        </md-tab>
+        <md-tab flex label="places">
+            <md-content class="md-padding">
+            </md-content>
+        </md-tab>
+    </md-tabs>
+</md-content>
