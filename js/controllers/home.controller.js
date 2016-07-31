@@ -14,7 +14,9 @@
         'section',
         'project',
         'comment',
-        function($rootScope, $log, $state, $timeout, $location, menu, simplemde, docSection, project, comment) {
+        '$mdDialog',
+        '$mdMedia',
+        function($rootScope, $log, $state, $timeout, $location, menu, simplemde, docSection, project, comment, $mdDialog, $mdMedia) {
 
             $state.go('home');
 
@@ -23,6 +25,7 @@
             $rootScope.showMainView = true;
             $rootScope.comment = comment;
             $rootScope.menu = menu;
+            $rootScope.docSection = docSection;
 
             //functions for menu-link and menu-toggle
             vm.isExpanded = function(section) {
@@ -51,22 +54,29 @@
 
             simplemde.codemirror.on('keyHandled', function(obj, name, e) {
                 if (["Enter", "Up", "Down"].indexOf(name) != -1) {
-                    $rootScope.reloadSections();
+                    menu.refresh();
+                    $rootScope.checkCurrentSectionChanged();
                 }
                 $rootScope.$apply();
             });
 
             simplemde.codemirror.on('cursorActivity', function(doc) {
-                comment.refresh();
-                $rootScope.refreshSectionSelection();
+                checkCurrentSectionChanged();
                 $rootScope.$apply();
             });
 
             simplemde.codemirror.on("change", function() {
-                //getScope().reloadContent();
                 project.flagChanged = true;
             });
 
+            function checkCurrentSectionChanged() {
+                var newCurrentSection = docSection.getSectionOnCursor();
+                if (docSection.currentSection != newCurrentSection) { // Changed
+                    docSection.currentSection = newCurrentSection;
+                    comment.refresh();
+                    menu.setCurrentPage(docSection.currentSection.parent, docSection.currentSection);
+                }
+            };
 
             require('electron').ipcRenderer.on('load-project', (event, args) => {
                 project.loadProject(args.path, function() {
@@ -79,20 +89,7 @@
             })
 
             $rootScope.reloadContent = function() {
-                $rootScope.reloadSections();
-                comment.refresh();
-                $rootScope.$apply();
-            }
-
-            $rootScope.refreshSectionSelection = function() {
-                var cs = simplemde.codemirror.getCursor();
-                var i;
-                for (i = 0; i < docSection.section_arr.length; i++) {
-                    if ((cs.line >= docSection.section_arr[i].line_start) && (cs.line <= docSection.section_arr[i].line_end)) {
-                        menu.setCurrentPage(docSection.section_arr[i].parent, docSection.section_arr[i]);
-                        break;
-                    }
-                }
+                menu.refresh();
                 $rootScope.$apply();
             }
 
@@ -117,9 +114,29 @@
 
             }
 
-            $rootScope.reloadSections = function() {
-                menu.refresh();
-                vm.menu = menu;
+            $rootScope.showTodoList = function(ev) {
+                $mdDialog.show({
+                        controller: function($scope, comment) {
+                            comment.reloadTodos();
+                            $scope.todos = comment.comments.todos;
+                            console.debug($scope.todos);
+                        },
+                        templateUrl: 'js/templates/todo-list.tmpl.html',
+                        parent: angular.element(document.body),
+                        targetEvent: ev,
+                        clickOutsideToClose: true,
+                        fullscreen: false
+                    })
+                    .then(function(answer) {
+                        $rootScope.status = 'You said the information was "' + answer + '".';
+                    }, function() {
+                        $rootScope.status = 'You cancelled the dialog.';
+                    });
+                $rootScope.$watch(function() {
+                    return $mdMedia('xs') || $mdMedia('sm');
+                }, function(wantsFullScreen) {
+                    $rootScope.customFullscreen = (wantsFullScreen === true);
+                });
             }
         }
     ])

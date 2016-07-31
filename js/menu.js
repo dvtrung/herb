@@ -27,6 +27,26 @@ const template = [
                 click() {
                     remote.app.saveProject();
                 }
+            },
+            {
+              type: 'separator'
+            },
+            {
+                label: 'Export',
+                submenu: [
+                    {
+                        label: 'Web Page (html)',
+                        click() {
+                            remote.app.exportTo('html');
+                        }
+                    },
+                    {
+                        label: 'Ebook (epub)'
+                    },
+                    {
+                        label: 'PDF'
+                    },
+                ]
             }
         ]
     },

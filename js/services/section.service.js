@@ -9,6 +9,7 @@
                 var self = {
                     sections: [],
                     section_arr: [],
+                    currentSection: null,
 
                     getHeadingLevel: function(str) {
                         if (!str) return 0;
@@ -52,6 +53,16 @@
                     getCurrentSection: function() {
                         var cs = simplemde.codemirror.getCursor();
                         return self.getSection(cs.line);
+                    },
+
+                    getSectionOnCursor: function() {
+                        var cs = simplemde.codemirror.getCursor();
+                        var i;
+                        for (i = 0; i < self.section_arr.length; i++) {
+                            if ((cs.line >= self.section_arr[i].line_start) && (cs.line <= self.section_arr[i].line_end)) {
+                                return self.section_arr[i];
+                            }
+                        }
                     },
 
                     refresh: function() {
@@ -110,7 +121,8 @@
                         //simplemde.codemirror.scrollIntoView({ line: section.line_start, ch: 0 });
                         //simplemde.codemirror.scrollTo(null, t);
                         //$rootScope.refreshSectionSelection();
-                    }
+                    },
+
                 };
 
                 return self;

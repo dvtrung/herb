@@ -43,11 +43,6 @@
                 };
 
                 return self;
-
-                function sortByHumanName(a, b) {
-                    return (a.humanName < b.humanName) ? -1 :
-                        (a.humanName > b.humanName) ? 1 : 0;
-                }
             }
         ])
 

@@ -6,6 +6,8 @@ const {BrowserWindow} = electron;
 const {dialog} = require('electron');
 const {ipcMain} = require('electron');
 
+var exporter = require('./libs/exporter.js');
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 var mainWindow = null;
@@ -101,4 +103,11 @@ app.newProject = function() {
 app.saveProject = function() {
     win = BrowserWindow.getFocusedWindow();
     win.webContents.send('save-project');
+}
+
+app.exportTo = function(fileType) {
+    exporter.mdText = 'abc Test';
+    if (fileType == "html") {
+        exporter.toHTML();
+    }
 }

@@ -7,6 +7,14 @@
     height: 100%;
 }
 
+.CodeMirror-wrap pre {
+    padding-bottom: 15px;
+}
+
+.CodeMirror-vscrollbar {
+    overflow: hidden;
+}
+
 .text-wrap * {
     white-space: normal!important;
 }
@@ -21,4 +29,13 @@
 .widget-content {
     height: calc(100% - 40px);
     overflow: auto;
+}
+
+.md-sidenav-left {
+    overflow-y: hidden;
+}
+
+.question-mark {
+    color: red;
+    font-size: 130%;
 }
