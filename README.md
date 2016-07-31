@@ -48,7 +48,7 @@ When you think there would be a more suitable word.
 ## Chapter's Additional Infos
 
 ```
-[<Context>] # (description goes here)
+[<Context>]: # (description goes here)
 ```
 
 ## Set up context, places, characters
