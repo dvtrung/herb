@@ -42,7 +42,13 @@ When you think there would be a more suitable word.
 ### Notes
 
 ```
-[TODO]: # (notes goes here)
+[NOTE]: # (note goes here)
+```
+
+## Chapter's Additional Infos
+
+```
+[<Context>]: # (description goes here)
 ```
 
 ## Set up context, places, characters
