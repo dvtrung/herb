@@ -8,9 +8,9 @@
             'section',
             function(simplemde, docSection) {
 
-                function getRegexResults(re, line_start, line_end) {
-                    if (!line_start) line_start = 0;
-                    if (!line_end) line_end = simplemde.codemirror.lineCount() - 1;
+                function getRegexResults(re, section) {
+                    var line_start = section ? section.line_start : 0;
+                    var line_end = section ? section.line_end : simplemde.codemirror.lineCount() - 1;
                     var ret = [];
                     var line;
                     for (line = line_start; line <= line_end; line++) {
@@ -18,9 +18,10 @@
                         var comment = re.exec(content);
                         while (comment) {
                             ret.push({
-                                'match': comment,
-                                'ch': comment.index,
-                                'line': line,
+                                match: comment,
+                                ch: comment.index,
+                                line: line,
+                                section: section
                             });
                             comment = re.exec(content);
                         }
@@ -42,7 +43,7 @@
                             ch: comment.ch
                         }, {
                             line: comment.line,
-                            ch: comment.ch + comment.content[0].length
+                            ch: comment.ch + comment.match[0].length
                         }, {
                             scroll: true
                         });
@@ -60,15 +61,15 @@
                     },
 
                     reloadMissingWords: function(section) {
-                        self.comments.missing_words = getRegexResults(/( |^)(.{0,30})\[\]\(([^\)]*)\)(.{0,30})( |$)/g, section.line_start, section.line_end);
+                        self.comments.missing_words = getRegexResults(/( |^)(.{0,30})\[\]\(([^\)]*)\)(.{0,30})( |$)/g, section);
                     },
 
                     reloadNeedCorrectionWords: function(section) {
-                        self.comments.need_correction_words = getRegexResults(/( |^)(.{0,30})\[([^\]]*)\]\(\?\)(.{0,30})( |$)/g, section.line_start, section.line_end);
+                        self.comments.need_correction_words = getRegexResults(/( |^)(.{0,30})\[([^\]]*)\]\(\?\)(.{0,30})( |$)/g, section);
                     },
 
                     reloadTodos: function() {
-                        self.comments.todos = getRegexResults(/\[(.*)\]: # \(([^\)]*)\)/g);
+                        self.comments.todos = getRegexResults(/\[TODO\]: # \(([^\)]*)\)/g);
                     },
 
                     refresh: function() {
@@ -80,7 +81,7 @@
                     },
 
                     reloadSectionInfoFields: function(section) {
-                        self.section_info_fields = getRegexResults(/\[<(.*)>\]: # \((.*)\)/g, section.line_start, section.line_end);
+                        self.section_info_fields = getRegexResults(/\[<(.*)>\]: # \((.*)\)/g, section);
                         var i; for (i = 0; i < self.section_info_fields.length; i++) {
                             self.section_info_fields[i].unescape_text = section_info.unescape(self.section_info_fields[i].match[2]);
                         }
